@@ -1,3 +1,4 @@
+import SwiftSyntax
 import Testing
 
 @testable import Quaternion
@@ -85,4 +86,9 @@ import Testing
     let result = try opNode.getOutputSocket(named: "Result").type.value
 
     #expect(result == SocketValueType.numeric(3.0))
+}
+
+@Test func fourCharacterCodeMacroBasicTest() async throws {
+    let result = #fourCharacterCode("ABCD")
+    #expect(result == 1_094_861_636)
 }
