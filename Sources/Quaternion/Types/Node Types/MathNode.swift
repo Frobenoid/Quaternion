@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MathNode: NodeType {
+class MathNode: NodeType {
     func execute(params p: inout ExecutionParameters) throws {
         let lhs: Float = try p.getInputValue(named: "LHS")
         let rhs: Float = try p.getInputValue(named: "RHS")
