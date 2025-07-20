@@ -8,22 +8,33 @@
 import Foundation
 
 public struct NumericSocket: SocketType {
-    public var value: SocketValueType = .numeric(0)
 
+    public var defaultValue: SocketValueType = .numeric(0)
+    public var currentValue: SocketValueType
+    
     init(defaultValue: SocketValueType) {
-        value = defaultValue
+        currentValue = defaultValue
     }
 
     init() {
-
+        currentValue = defaultValue
     }
 
     public mutating func setValue(to newValue: SocketValueType) throws {
-        value = newValue
+        currentValue = newValue
     }
 
     public func readValue() throws -> SocketValueType {
-        value
+        currentValue
     }
 
+    
+    public mutating func setToDefaultValue() {
+        currentValue = defaultValue
+    }
+    
+    public func readDefaultValue() -> SocketValueType {
+        defaultValue
+    }
+    
 }
