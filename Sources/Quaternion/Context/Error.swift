@@ -10,6 +10,7 @@ import Foundation
 enum NodeError: Error {
     case nonExistentNode(String)
     case nonExistentNodeWithId(UUID)
+    case nonExistentSocket(withID: UUID)
 }
 
 enum SocketError: Error {
