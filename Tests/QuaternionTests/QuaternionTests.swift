@@ -22,7 +22,7 @@ import Testing
     try tree.execute()
 
     let opNode = try tree.findNodeById(id: op)
-    let result = try opNode.getOutputSocket(named: "Result").type.value
+    let result = try opNode.getOutputSocket(named: "Result").type.readValue()
 
     #expect(result == SocketValueType.numeric(2.0))
 }
@@ -82,7 +82,7 @@ import Testing
     try tree.execute()
 
     let opNode = try tree.findNodeById(id: op2)
-    let result = try opNode.getOutputSocket(named: "Result").type.value
+    let result = try opNode.getOutputSocket(named: "Result").type.readValue()
 
     #expect(result == SocketValueType.numeric(3.0))
 }
