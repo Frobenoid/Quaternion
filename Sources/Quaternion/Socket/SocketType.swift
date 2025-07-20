@@ -20,8 +20,12 @@ public enum SocketValueType: Equatable {
 
 public protocol SocketType {
 
-    var value: SocketValueType { get set }
+    var defaultValue: SocketValueType { get }
+    var currentValue: SocketValueType { get set }
 
     mutating func setValue(to newValue: SocketValueType) throws
+    mutating func setToDefaultValue()
+
     func readValue() throws -> SocketValueType
+    func readDefaultValue() -> SocketValueType
 }
