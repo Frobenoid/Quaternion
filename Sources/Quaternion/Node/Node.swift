@@ -66,7 +66,7 @@ extension Node {
     ) throws {
         if inputSockets.keys.contains(socketID) {
             try inputSockets[socketID]!.type.setValue(to: value)
-        } else if inputSockets.keys.contains(socketID) {
+        } else if outputSockets.keys.contains(socketID) {
             try outputSockets[socketID]!.type.setValue(to: value)
 
         } else {
@@ -78,7 +78,7 @@ extension Node {
 
         if inputSockets.keys.contains(socketID) {
             return inputSockets[socketID]!.type.currentValue
-        } else if inputSockets.keys.contains(socketID) {
+        } else if outputSockets.keys.contains(socketID) {
             return outputSockets[socketID]!.type.currentValue
         } else {
             throw NodeError.nonExistentSocket(withID: socketID)
@@ -91,8 +91,10 @@ extension Node {
     ) throws {
         if inputSockets.keys.contains(socketID) {
             inputSockets[socketID]!.type.defaultValue = value
-        } else if inputSockets.keys.contains(socketID) {
+            inputSockets[socketID]!.type.setToDefaultValue()
+        } else if outputSockets.keys.contains(socketID) {
             outputSockets[socketID]!.type.defaultValue = value
+            outputSockets[socketID]!.type.setToDefaultValue()
         } else {
             throw NodeError.nonExistentSocket(withID: socketID)
         }
