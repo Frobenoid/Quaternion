@@ -30,7 +30,11 @@ public struct InputSocket: Socket {
     }
 
     public mutating func connect(to socket: UUID) {
-        self.connectedTo = socket
+        connectedTo = socket
+    }
+
+    public mutating func disconnect() {
+        connectedTo = nil
     }
 }
 
@@ -48,7 +52,15 @@ public struct OutputSocket: Socket {
         self.type = type
     }
 
-    public mutating func connect(to socket: UUID) {
-        self.connectedTo.insert(socket)
+    public mutating func connect(to socketID: UUID) {
+        connectedTo.insert(socketID)
+    }
+
+    public mutating func disconnect(from socketID: UUID) {
+        connectedTo.remove(socketID)
+    }
+
+    public mutating func disconnectAll() {
+        connectedTo.removeAll()
     }
 }
