@@ -17,8 +17,8 @@ struct Tree {
     var orderedNodes: [NodeID] = []
     var parentNode: [SocketID: NodeID] = [:]
 
-    mutating func addNode(named name: String, ofType type: NodeType) -> UUID {
-        let newNode = Node(named: name, ofType: type)
+    mutating func addNode(ofType type: NodeType) -> UUID {
+        let newNode = Node(ofType: type)
         nodes.updateValue(newNode, forKey: newNode.id)
 
         // Update parent node pointers
