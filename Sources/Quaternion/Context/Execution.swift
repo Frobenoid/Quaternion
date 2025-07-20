@@ -18,7 +18,7 @@ public struct ExecutionParameters {
 
     func getInputValue<T>(named name: String) throws -> T {
         let socket = try node.getInputSocket(named: name)
-        let value = socket.type.value.actualValue()
+        let value = try socket.type.readValue().actualValue()
 
         guard let typedValue = value as? T else {
             throw SocketError.castingError(from: value.self, to: T.self)

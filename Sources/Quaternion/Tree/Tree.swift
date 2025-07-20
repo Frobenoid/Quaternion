@@ -121,7 +121,7 @@ extension Tree {
             for socketId in outputSocket.connectedTo {
                 try nodes[parentNode[socketId]!]!.inputSockets[socketId]!.type
                     .setValue(
-                        to: outputSocket.type.value
+                        to: outputSocket.type.readValue()
                     )
             }
         }
