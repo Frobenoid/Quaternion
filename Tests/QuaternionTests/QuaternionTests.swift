@@ -5,16 +5,14 @@ import Testing
 @Test func onePlusOneTest() async throws {
     var tree = Tree(name: "Test")
     let lhs = tree.addNode(
-        named: "Constant",
         ofType: ConstantNode()
     )
 
     let rhs = tree.addNode(
-        named: "Constant 2",
         ofType: ConstantNode()
     )
 
-    let op = tree.addNode(named: "Sum", ofType: MathNode())
+    let op = tree.addNode(ofType: MathNode())
 
     try tree.connect(from: lhs, atSocket: "Value", to: op, atSocket: "LHS")
     try tree.connect(from: rhs, atSocket: "Value", to: op, atSocket: "RHS")
@@ -32,11 +30,10 @@ import Testing
     var tree = Tree(name: "Testing tree")
 
     let lhs = tree.addNode(
-        named: "Constant",
         ofType: ConstantNode()
     )
 
-    let op = tree.addNode(named: "Sum", ofType: MathNode())
+    let op = tree.addNode(ofType: MathNode())
 
     try tree.connect(from: lhs, atSocket: "Value", to: op, atSocket: "LHS")
 
@@ -50,26 +47,23 @@ import Testing
     var tree = Tree(name: "Arithmetic tree")
 
     let lhs = tree.addNode(
-        named: "Constant",
         ofType: ConstantNode()
     )
 
     let rhs = tree.addNode(
-        named: "Constant",
         ofType: ConstantNode()
     )
 
-    let op = tree.addNode(named: "Operation", ofType: MathNode())
+    let op = tree.addNode(ofType: MathNode())
 
     try tree.connect(from: lhs, atSocket: "Value", to: op, atSocket: "LHS")
     try tree.connect(from: rhs, atSocket: "Value", to: op, atSocket: "RHS")
 
     let rhs2 = tree.addNode(
-        named: "Constant",
         ofType: ConstantNode()
     )
 
-    let op2 = tree.addNode(named: "Operation 2", ofType: MathNode())
+    let op2 = tree.addNode(ofType: MathNode())
 
     try tree.connect(from: op, atSocket: "Result", to: op2, atSocket: "LHS")
     try tree.connect(

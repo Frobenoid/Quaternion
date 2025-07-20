@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ConstantNode: NodeType {
+class ConstantNode: NodeType {
     func execute(params p: inout ExecutionParameters) throws {
     }
 

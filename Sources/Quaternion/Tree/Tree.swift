@@ -10,15 +10,20 @@ import Foundation
 typealias SocketID = UUID
 typealias NodeID = UUID
 
-struct Tree {
+@Observable
+class Tree {
     var id: UUID = UUID()
     var name: String
-    var nodes: [NodeID: Node] = [:]
-    var orderedNodes: [NodeID] = []
-    var parentNode: [SocketID: NodeID] = [:]
+    private(set) var nodes: [NodeID: Node] = [:]
+    private(set) var orderedNodes: [NodeID] = []
+    private var parentNode: [SocketID: NodeID] = [:]
+    
+    init(name: String) {
+        self.name = name
+    }
 
-    mutating func addNode(named name: String, ofType type: NodeType) -> UUID {
-        let newNode = Node(named: name, ofType: type)
+    func addNode(ofType type: NodeType) -> UUID {
+        let newNode = Node(ofType: type)
         nodes.updateValue(newNode, forKey: newNode.id)
 
         // Update parent node pointers
@@ -46,7 +51,7 @@ extension Tree {
 
 extension Tree {
     /// Topologically sorts the tree nodes.
-    mutating private func computeExecutionOrder() {
+    private func computeExecutionOrder() {
 
         // TODO: Implement ordering caching.
 
@@ -81,7 +86,7 @@ extension Tree {
 }
 
 extension Tree {
-    mutating func propagateValues(for node: Node) throws {
+    func propagateValues(for node: Node) throws {
         for outputSocket in node.outputSockets.values {
             for socketId in outputSocket.connectedTo {
                 try nodes[parentNode[socketId]!]!.inputSockets[socketId]!.type
@@ -94,7 +99,7 @@ extension Tree {
 }
 
 extension Tree {
-    mutating func execute() throws {
+    func execute() throws {
         computeExecutionOrder()
 
         for nodeID in orderedNodes {
@@ -107,7 +112,7 @@ extension Tree {
 }
 
 extension Tree {
-    mutating func setSocketValue(
+    func setSocketValue(
         forNode nodeID: UUID,
         atSocket socketID: UUID,
         to value: SocketValueType
@@ -131,7 +136,7 @@ extension Tree {
         }
     }
 
-    mutating func setSocketDefaultValue(
+    func setSocketDefaultValue(
         forNode nodeID: UUID,
         atSocket socketID: UUID,
         to value: SocketValueType
@@ -146,7 +151,7 @@ extension Tree {
         }
     }
 
-    mutating func resetSocketValueToDefault(
+    func resetSocketValueToDefault(
         forNode nodeID: UUID,
         atSocket socketID: UUID
     ) throws {
@@ -165,7 +170,7 @@ extension Tree {
     ///
     ///  This function does not propagate any values. Value propagation is defered until `NodeTree::execute()`
     ///  is called.
-    mutating func connect(
+    func connect(
         from: UUID,
         atSocket sourceSocketName: String,
         to: UUID,
@@ -196,7 +201,7 @@ extension Tree {
     }
 
     /// This function disconnects an input socket
-    mutating func disconnect(node nodeID: UUID, inputSocket socketID: UUID)
+    func disconnect(node nodeID: UUID, inputSocket socketID: UUID)
         throws
     {
         // Check that node exists.
@@ -215,7 +220,7 @@ extension Tree {
         }
     }
 
-    mutating func disconnect(
+    func disconnect(
         node nodeID: UUID,
         outputSocket socketID: UUID,
         fromSocket targetID: UUID

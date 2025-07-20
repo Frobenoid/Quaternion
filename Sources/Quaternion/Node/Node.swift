@@ -6,14 +6,12 @@ import Foundation
 public struct Node: Identifiable {
 
     public var id: UUID = UUID()
-    public var name: String
     public var inputSockets: [UUID: InputSocket] = [:]
     public var outputSockets: [UUID: OutputSocket] = [:]
 
     public var type: any NodeType
 
-    init(named name: String, ofType type: any NodeType) {
-        self.name = name
+    init(ofType type: any NodeType) {
         self.type = type
 
         var parametersBuilder = ParametersBuilder()

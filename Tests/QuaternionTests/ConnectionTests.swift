@@ -13,8 +13,8 @@ import Testing
 @Test func defaultValuesTest() async throws {
     var tree = Tree(name: "2+2=4")
     // TODO: Notice that name is irrelevant for nodes.
-    let lhs = tree.addNode(named: "Constant", ofType: ConstantNode())
-    let rhs = tree.addNode(named: "Constant", ofType: ConstantNode())
+    let lhs = tree.addNode(ofType: ConstantNode())
+    let rhs = tree.addNode(ofType: ConstantNode())
 
     let socketLHS = try tree.findNodeById(id: lhs).getOutputSocket(
         named: "Value"
@@ -35,7 +35,7 @@ import Testing
         to: .numeric(2)
     )
 
-    let op = tree.addNode(named: "Sum", ofType: MathNode())
+    let op = tree.addNode(ofType: MathNode())
 
     try tree.connect(from: lhs, atSocket: "Value", to: op, atSocket: "LHS")
     try tree.connect(from: rhs, atSocket: "Value", to: op, atSocket: "RHS")
@@ -52,8 +52,8 @@ import Testing
 @Test func setCurrentValueTest() async throws {
     var tree = Tree(name: "2+2=4")
     // TODO: Notice that name is irrelevant for nodes.
-    let lhs = tree.addNode(named: "Constant", ofType: ConstantNode())
-    let rhs = tree.addNode(named: "Constant", ofType: ConstantNode())
+    let lhs = tree.addNode(ofType: ConstantNode())
+    let rhs = tree.addNode(ofType: ConstantNode())
 
     let socketLHS = try tree.findNodeById(id: lhs).getOutputSocket(
         named: "Value"
@@ -74,7 +74,7 @@ import Testing
         to: .numeric(2)
     )
 
-    let op = tree.addNode(named: "Sum", ofType: MathNode())
+    let op = tree.addNode(ofType: MathNode())
 
     try tree.connect(from: lhs, atSocket: "Value", to: op, atSocket: "LHS")
     try tree.connect(from: rhs, atSocket: "Value", to: op, atSocket: "RHS")
@@ -90,8 +90,8 @@ import Testing
 @Test func disconnectionTest() async throws {
     var tree = Tree(name: "2+1=3")
     // TODO: Notice that name is irrelevant for nodes.
-    let lhs = tree.addNode(named: "Constant", ofType: ConstantNode())
-    let rhs = tree.addNode(named: "Constant", ofType: ConstantNode())
+    let lhs = tree.addNode(ofType: ConstantNode())
+    let rhs = tree.addNode(ofType: ConstantNode())
 
     let socketLHS = try tree.findNodeById(id: lhs).getOutputSocket(
         named: "Value"
@@ -112,7 +112,7 @@ import Testing
         to: .numeric(2)
     )
 
-    let op = tree.addNode(named: "Sum", ofType: MathNode())
+    let op = tree.addNode(ofType: MathNode())
 
     try tree.connect(from: lhs, atSocket: "Value", to: op, atSocket: "LHS")
     try tree.connect(from: rhs, atSocket: "Value", to: op, atSocket: "RHS")
@@ -124,17 +124,17 @@ import Testing
 
     #expect(result == .numeric(4.0))
 
-    let lhs1 = tree.addNode(named: "Constant", ofType: ConstantNode())
+    let lhs1 = tree.addNode(ofType: ConstantNode())
     let mathLHS = try tree.findNodeById(id: op).getInputSocket(named: "LHS").id
 
     try tree.disconnect(node: lhs, outputSocket: socketLHS, fromSocket: mathLHS)
 
     try tree.connect(from: lhs1, atSocket: "Value", to: op, atSocket: "LHS")
-    
+
     try tree.execute()
-    
+
     let opNode1 = try tree.findNodeById(id: op)
     let result1 = try opNode1.getOutputSocket(named: "Result").type.readValue()
-    
+
     #expect(result1 == .numeric(3.0))
 }
