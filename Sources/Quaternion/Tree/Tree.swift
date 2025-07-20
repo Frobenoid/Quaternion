@@ -140,3 +140,56 @@ extension Tree {
         }
     }
 }
+
+extension Tree {
+    mutating func setSocketValue(
+        forNode nodeID: UUID,
+        atSocket socketID: UUID,
+        to value: SocketValueType
+    ) throws {
+        if nodes.keys.contains(nodeID) {
+            try nodes[nodeID]!.setSocketValue(forSocket: socketID, to: value)
+        } else {
+            throw NodeError.nonExistentSocket(withID: socketID)
+        }
+
+    }
+
+    func getSocketValue(
+        forNode nodeID: UUID,
+        atSocket socketID: UUID
+    ) throws -> SocketValueType {
+        if nodes.keys.contains(nodeID) {
+            try nodes[nodeID]!.getSocketValue(forSocket: socketID)
+        } else {
+            throw NodeError.nonExistentNodeWithId(nodeID)
+        }
+    }
+
+    mutating func setSocketDefaultValue(
+        forNode nodeID: UUID,
+        atSocket socketID: UUID,
+        to value: SocketValueType
+    ) throws {
+        if nodes.keys.contains(nodeID) {
+            try nodes[nodeID]!.setDefaultValue(
+                forSocket: socketID,
+                to: value
+            )
+        } else {
+            throw NodeError.nonExistentNodeWithId(nodeID)
+        }
+    }
+
+    mutating func resetSocketValueToDefault(
+        forNode nodeID: UUID,
+        atSocket socketID: UUID
+    ) throws {
+        if nodes.keys.contains(nodeID) {
+            try nodes[nodeID]!.resetSocketValue(forSocket: socketID)
+        } else {
+            throw NodeError.nonExistentNodeWithId(nodeID)
+        }
+    }
+
+}

@@ -58,3 +58,55 @@ extension Node {
         }
     }
 }
+
+extension Node {
+    mutating func setSocketValue(
+        forSocket socketID: UUID,
+        to value: SocketValueType
+    ) throws {
+        if inputSockets.keys.contains(socketID) {
+            try inputSockets[socketID]!.type.setValue(to: value)
+        } else if inputSockets.keys.contains(socketID) {
+            try outputSockets[socketID]!.type.setValue(to: value)
+
+        } else {
+            throw NodeError.nonExistentSocket(withID: socketID)
+        }
+    }
+
+    func getSocketValue(forSocket socketID: UUID) throws -> SocketValueType {
+
+        if inputSockets.keys.contains(socketID) {
+            return inputSockets[socketID]!.type.currentValue
+        } else if inputSockets.keys.contains(socketID) {
+            return outputSockets[socketID]!.type.currentValue
+        } else {
+            throw NodeError.nonExistentSocket(withID: socketID)
+        }
+    }
+
+    mutating func setDefaultValue(
+        forSocket socketID: UUID,
+        to value: SocketValueType
+    ) throws {
+        if inputSockets.keys.contains(socketID) {
+            inputSockets[socketID]!.type.defaultValue = value
+        } else if inputSockets.keys.contains(socketID) {
+            outputSockets[socketID]!.type.defaultValue = value
+        } else {
+            throw NodeError.nonExistentSocket(withID: socketID)
+        }
+    }
+
+    mutating func resetSocketValue(
+        forSocket socketID: UUID
+    ) throws {
+        if inputSockets.keys.contains(socketID) {
+            inputSockets[socketID]!.type.setToDefaultValue()
+        } else if outputSockets.keys.contains(socketID) {
+            outputSockets[socketID]!.type.setToDefaultValue()
+        } else {
+            throw NodeError.nonExistentSocket(withID: socketID)
+        }
+    }
+}
