@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  NodeType.swift
 //  Quaternion
 //
 //  Created by Milton Montiel on 16/07/25.
