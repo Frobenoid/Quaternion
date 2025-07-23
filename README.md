@@ -5,7 +5,7 @@
 ## Overview 
 
 Quaternion provides a flexible, type-safe system for creating node-based applications in Swift. The main use case for this 
-packaged is the construction of visual programming tools, but general data processing pipelines can be built too. 
+package is the construction of visual programming tools, but general data processing pipelines can be built too. 
 
 Quaternion aims to offer the building blocks for constructing and executing complex node trees. 
 
