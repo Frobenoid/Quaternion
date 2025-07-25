@@ -8,6 +8,12 @@
 import Foundation
 
 class ConstantNode: NodeType {
+    var metadata = NodeTypeMetadata(
+        name: "Constant Node",
+        description: "Returns a constant numeric value",
+        tags: ["Constant", "Numeric", "Math"]
+    )
+
     func execute(params p: inout ExecutionParameters) throws {
     }
 

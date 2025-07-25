@@ -8,6 +8,13 @@
 import Foundation
 
 class MathNode: NodeType {
+    var metadata = NodeTypeMetadata(
+        name: "Math Node",
+        description:
+            "This node performs basic arithmetic operations on two numeric inputs.",
+        tags: ["Math", "Arithmetic", "Numeric"]
+    )
+
     func execute(params p: inout ExecutionParameters) throws {
         let lhs: Float = try p.getInputValue(named: "LHS")
         let rhs: Float = try p.getInputValue(named: "RHS")
