@@ -12,6 +12,7 @@ public struct ExecutionParameters {
 
     var node: Node
 
+    // TODO: This does not need to be inout.
     init(node: inout Node) {
         self.node = node
     }
