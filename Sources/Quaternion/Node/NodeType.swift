@@ -8,7 +8,7 @@
 import Foundation
 
 public protocol NodeType {
-    var metadata: NodeTypeMetadata { get }
+    var metadata: any NodeTypeMetadata { get }
 
     func declareNode(params b: inout ParametersBuilder)
 

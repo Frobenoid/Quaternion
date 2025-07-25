@@ -8,7 +8,7 @@
 import Foundation
 
 class MathNode: NodeType {
-    var metadata = NodeTypeMetadata(
+    var metadata: any NodeTypeMetadata = TypeMetadata(
         name: "Math Node",
         description:
             "This node performs basic arithmetic operations on two numeric inputs.",

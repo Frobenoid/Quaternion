@@ -8,7 +8,7 @@
 import Foundation
 
 class ConstantNode: NodeType {
-    var metadata = NodeTypeMetadata(
+    var metadata: any NodeTypeMetadata = TypeMetadata(
         name: "Constant Node",
         description: "Returns a constant numeric value",
         tags: ["Constant", "Numeric", "Math"]

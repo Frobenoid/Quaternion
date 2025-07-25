@@ -7,6 +7,7 @@ public struct Node: Identifiable {
     public var outputSockets: [UUID: OutputSocket] = [:]
 
     public var type: any NodeType
+    public var metadata: (any NodeMetadata)? 
 
     init(ofType type: any NodeType) {
         self.type = type
