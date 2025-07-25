@@ -9,3 +9,8 @@
 public protocol NodeMetadata {
     // TODO...
 }
+
+public class CoreMetadata: NodeMetadata {
+    var isSelected: Bool = false
+    var position: SIMD3<Float> = .zero
+}

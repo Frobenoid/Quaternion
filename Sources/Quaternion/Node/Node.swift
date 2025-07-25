@@ -7,7 +7,7 @@ public struct Node: Identifiable {
     public var outputSockets: [UUID: OutputSocket] = [:]
 
     public var type: any NodeType
-    public var metadata: (any NodeMetadata)? 
+    public var metadata: (any NodeMetadata)?
 
     init(ofType type: any NodeType) {
         self.type = type
@@ -18,6 +18,8 @@ public struct Node: Identifiable {
 
         (inputSockets, outputSockets) =
             parametersBuilder.parameters
+        
+        metadata = CoreMetadata()
     }
 }
 
